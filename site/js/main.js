@@ -1,0 +1,142 @@
+/* =========================================================
+   KVP SONS — page interactions
+   ========================================================= */
+(() => {
+  const D = window.SITE_DATA;
+  const $ = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const hasGSAP = !!(window.gsap && window.ScrollTrigger);
+
+  $("#year").textContent = new Date().getFullYear();
+
+  /* ---------- render team ---------- */
+  const [founder, ...members] = D.team;
+  $("#founder").innerHTML = `
+    <div class="founder__img"><img src="${founder.photo}" alt="${founder.name}"></div>
+    <div>
+      <p class="founder__tag">${founder.role}</p>
+      <h3>${founder.name}</h3>
+      <blockquote>A visionary who founded KVP Sons in 1920 during the British Raj. He started with lift-irrigation projects for the paddy fields of the Periyar valley and roads from Elamkulam (now Kolenchery), and laid a foundation that generations of the Kunnel family continue to build on.</blockquote>
+    </div>`;
+  $("#teamGrid").innerHTML = members.map(m => `
+    <article class="member reveal">
+      <div class="member__img"><img src="${m.photo}" alt="${m.name}" loading="lazy"></div>
+      <div class="member__info"><h4>${m.name}</h4><p>${m.role}</p></div>
+    </article>`).join("");
+
+  /* ---------- render clients ---------- */
+  $("#clientGrid").innerHTML = D.clients.map(src =>
+    `<div class="client reveal"><img src="${src}" alt="Client logo" loading="lazy"></div>`).join("");
+
+  /* ---------- render gallery ---------- */
+  $("#galleryGrid").innerHTML = D.gallery.map((g, i) => `
+    <figure class="shot" data-cat="${g.cat}" data-i="${i}">
+      <img src="${g.src}" alt="${g.title}" loading="lazy">
+      <figcaption class="shot__cap"><b>${g.title}</b><span>${g.cat}</span></figcaption>
+    </figure>`).join("");
+
+  /* ---------- header + mobile nav ---------- */
+  const header = $("#header"), nav = $("#nav"), burger = $("#burger");
+  const onScroll = () => header.classList.toggle("is-solid", scrollY > 40);
+  onScroll(); addEventListener("scroll", onScroll, { passive: true });
+  burger.addEventListener("click", () => {
+    const open = nav.classList.toggle("is-open");
+    burger.classList.toggle("is-open", open);
+    document.body.style.overflow = open ? "hidden" : "";
+  });
+  $$(".nav a").forEach(a => a.addEventListener("click", () => {
+    nav.classList.remove("is-open"); burger.classList.remove("is-open"); document.body.style.overflow = "";
+  }));
+
+  // highlight the section you're in
+  const links = $$(".nav a");
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    links.forEach(l => l.classList.toggle("is-active", l.getAttribute("href") === "#" + e.target.id));
+  }), { rootMargin: "-45% 0px -50% 0px" });
+  ["home", "about", "team", "clients", "gallery", "contact"].forEach(id => io.observe(document.getElementById(id)));
+
+  /* ---------- gallery filter + lightbox ---------- */
+  const shots = $$(".shot");
+  let visible = shots;
+  $$("#filters button").forEach(btn => btn.addEventListener("click", () => {
+    $$("#filters button").forEach(b => b.classList.toggle("is-active", b === btn));
+    const f = btn.dataset.filter;
+    shots.forEach(s => s.classList.toggle("is-hidden", f !== "all" && s.dataset.cat !== f));
+    visible = shots.filter(s => !s.classList.contains("is-hidden"));
+    if (hasGSAP) gsap.fromTo(visible, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .6, stagger: .04, ease: "power3.out" });
+    if (hasGSAP) ScrollTrigger.refresh();
+  }));
+
+  const lb = $("#lightbox"), lbImg = $("#lbImg"), lbCap = $("#lbCap");
+  let cur = 0;
+  const show = i => {
+    cur = (i + visible.length) % visible.length;
+    const g = D.gallery[+visible[cur].dataset.i];
+    lbImg.src = g.src.replace("w=1200", "w=1800"); lbImg.alt = g.title; lbCap.textContent = g.title;
+  };
+  shots.forEach(s => s.addEventListener("click", () => { show(visible.indexOf(s)); lb.classList.add("is-open"); lb.setAttribute("aria-hidden", "false"); }));
+  const close = () => { lb.classList.remove("is-open"); lb.setAttribute("aria-hidden", "true"); };
+  lb.addEventListener("click", e => {
+    const a = e.target.dataset.lb;
+    if (a === "prev") show(cur - 1); else if (a === "next") show(cur + 1); else if (a === "close" || e.target === lb) close();
+  });
+  addEventListener("keydown", e => {
+    if (!lb.classList.contains("is-open")) return;
+    if (e.key === "Escape") close(); if (e.key === "ArrowLeft") show(cur - 1); if (e.key === "ArrowRight") show(cur + 1);
+  });
+
+  /* ---------- contact form ---------- */
+  $("#contactForm").addEventListener("submit", e => {
+    e.preventDefault();
+    $("#formMsg").textContent = "Thank you! We'll get back to you shortly.";
+    e.target.reset();
+  });
+
+  /* ---------- counters ---------- */
+  function runCounters() {
+    $$("[data-count]").forEach(el => {
+      const n = +el.dataset.count;
+      if (!hasGSAP) { el.textContent = n; return; }
+      const o = { v: n > 1000 ? n - 120 : 0 }; // years count up from a nearby year, not from 0
+      gsap.to(o, { v: n, duration: 2.2, ease: "power3.out", delay: .6, onUpdate: () => (el.textContent = Math.round(o.v)) });
+    });
+  }
+
+  /* ---------- animations ---------- */
+  if (!hasGSAP) { runCounters(); return; }
+  gsap.registerPlugin(ScrollTrigger);
+
+  // hero entrance
+  gsap.timeline({ delay: .2 })
+    .from(".hero__title .ln > span", { yPercent: 110, duration: 1.1, stagger: .12, ease: "expo.out" })
+    .from(".hero .kicker, .hero__text, .hero__btns", { opacity: 0, y: 24, duration: .8, stagger: .1, ease: "power3.out" }, "-=.7")
+    .from(".stat", { yPercent: 100, duration: .9, stagger: .08, ease: "expo.out" }, "-=.6")
+    .from(".header", { yPercent: -100, duration: .8, ease: "expo.out", clearProps: "transform" }, "-=1");
+  runCounters();
+
+  // hero content drifts as you scroll away
+  gsap.to(".hero__content", { yPercent: -25, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+  // generic reveal on scroll (batched for staggering)
+  ScrollTrigger.batch(".reveal", {
+    start: "top 88%",
+    onEnter: els => gsap.fromTo(els, { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: .9, stagger: .07, ease: "power3.out", overwrite: true })
+  });
+  gsap.set(".reveal", { opacity: 0 });
+
+  // about images parallax
+  gsap.to(".about__img--b", { yPercent: -18, ease: "none", scrollTrigger: { trigger: ".about", start: "top bottom", end: "bottom top", scrub: true } });
+  gsap.from(".badge", { scale: .6, opacity: 0, duration: .9, ease: "back.out(1.8)", scrollTrigger: { trigger: ".about__media", start: "top 75%" } });
+
+  // gallery tiles
+  ScrollTrigger.batch(".shot", {
+    start: "top 92%",
+    onEnter: els => gsap.fromTo(els, { opacity: 0, y: 50, scale: .97 }, { opacity: 1, y: 0, scale: 1, duration: .9, stagger: .06, ease: "power3.out" })
+  });
+
+  // section titles: yellow kicker bar grows
+  $$(".kicker__bar").forEach(b => gsap.from(b, { scaleX: 0, transformOrigin: "left", duration: .8, ease: "power3.out", scrollTrigger: { trigger: b, start: "top 90%" } }));
+
+  addEventListener("load", () => ScrollTrigger.refresh());
+})();
