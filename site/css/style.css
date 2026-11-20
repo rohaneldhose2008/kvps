@@ -307,3 +307,63 @@ button { cursor: pointer; background: none; border: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* =========================================================
+   OPENING / LOADER — greeting, loading bar, % counter
+   ========================================================= */
+body.is-loading { overflow: hidden; }
+.loader {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ink); color: #fff;
+  transition: transform 1s cubic-bezier(.76,0,.24,1);
+}
+.loader.is-done { transform: translateY(-100%); pointer-events: none; }
+.loader.is-done .loader__inner { opacity: 0; transform: translateY(-40px); }
+.loader__inner {
+  width: min(560px, calc(100% - 48px));
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  transition: opacity .5s ease, transform .6s ease;
+}
+.loader__hello { display: block; height: clamp(90px, 22vw, 200px); width: auto; max-width: 100%; overflow: visible; }
+.loader__hello text {
+  font-family: var(--head), "Nirmala UI", "Noto Sans", "Noto Sans Malayalam", "Noto Sans Devanagari", system-ui, sans-serif;
+  font-weight: 700; font-size: 120px;
+  fill: rgba(255,255,255,0); stroke: var(--yellow); stroke-width: 1.4px;
+  stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: var(--dash, 700); stroke-dashoffset: var(--dash, 700);
+}
+.loader__hello text.is-script { font-family: "Dancing Script", cursive; font-weight: 600; stroke-width: 1.2px; }
+/* write: draw the outline, then fill it in, then fade before the next word */
+.loader__hello text.is-writing {
+  animation:
+    kvpDraw var(--draw) cubic-bezier(.45,.05,.35,1) forwards,
+    kvpFill var(--fill) ease calc(var(--draw) * .8) forwards,
+    kvpOut calc(var(--life) - var(--out)) ease var(--out) forwards;
+}
+.loader__hello text.is-writing.is-last {
+  animation: kvpDraw var(--draw) cubic-bezier(.45,.05,.35,1) forwards, kvpFill var(--fill) ease calc(var(--draw) * .8) forwards;
+}
+@keyframes kvpDraw { to { stroke-dashoffset: 0; } }
+@keyframes kvpFill { to { fill: #fff; stroke: rgba(245,178,27,0); } }
+@keyframes kvpOut { to { opacity: 0; } }
+.loader__skip {
+  position: absolute; right: clamp(16px, 4vw, 40px); bottom: clamp(16px, 4vh, 36px);
+  background: none; border: 0; padding: 8px 4px; cursor: pointer;
+  font: 600 12px/1 var(--body); letter-spacing: .24em; text-transform: uppercase; color: rgba(255,255,255,.5);
+  transition: color .3s;
+}
+.loader__skip:hover, .loader__skip:focus-visible { color: var(--yellow); }
+.loader__bar {
+  width: 100%; height: 3px; margin-top: clamp(22px, 4vh, 36px);
+  background: rgba(255,255,255,.14); overflow: hidden;
+}
+.loader__bar span {
+  display: block; height: 100%; background: var(--yellow);
+  transform: scaleX(0); transform-origin: left;
+}
+.loader__num {
+  margin-top: 14px;
+  font: 600 13px/1 var(--body); letter-spacing: .2em; color: rgba(255,255,255,.6);
+  font-variant-numeric: tabular-nums;
+}

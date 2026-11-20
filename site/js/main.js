@@ -107,13 +107,14 @@
   if (!hasGSAP) { runCounters(); return; }
   gsap.registerPlugin(ScrollTrigger);
 
-  // hero entrance
-  gsap.timeline({ delay: .2 })
+  // hero entrance — waits for the opening loader to slide away
+  const heroIn = gsap.timeline({ paused: true, delay: .25 })
     .from(".hero__title .ln > span", { yPercent: 110, duration: 1.1, stagger: .12, ease: "expo.out" })
     .from(".hero .kicker, .hero__text, .hero__btns", { opacity: 0, y: 24, duration: .8, stagger: .1, ease: "power3.out" }, "-=.7")
     .from(".stat", { yPercent: 100, duration: .9, stagger: .08, ease: "expo.out" }, "-=.6")
     .from(".header", { yPercent: -100, duration: .8, ease: "expo.out", clearProps: "transform" }, "-=1");
-  runCounters();
+  heroIn.progress(0); // apply the "from" states now so nothing flashes behind the loader
+  (window.kvpLoader || Promise.resolve()).then(() => { heroIn.play(); runCounters(); ScrollTrigger.refresh(); });
 
   // hero content drifts as you scroll away
   gsap.to(".hero__content", { yPercent: -25, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
