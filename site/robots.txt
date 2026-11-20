@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rohaneldhose2008.github.io/kvps/sitemap.xml
