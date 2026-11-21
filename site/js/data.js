@@ -9,8 +9,8 @@ const U = (id, w = 1200) => `https://images.unsplash.com/photo-${id}?auto=format
 window.SITE_DATA = {
   team: [
     { photo: "images/team/team-1.jpeg", name: "Paily Yoyak",           role: "Founder · 1884 – 1971" },
-    { photo: "images/team/team-2.jpeg", name: "K U Paily",             role: "PWD Contractor · 1950" },
-    { photo: "images/team/team-3.jpeg", name: "K U John",              role: "PWD Contractor · 1950" },
+    { photo: "images/team/team-2.jpeg", name: "K U Paily",             role: "PWD Contractor · 1940" },
+    { photo: "images/team/team-3.jpeg", name: "K U John",              role: "PWD Contractor · 1940" },
     { photo: "images/team/team-4.jpeg", name: "K P Yoyaki",            role: "Class A Govt. Contractor" },
     { photo: "images/team/team-5.jpeg", name: "K P Varghese",          role: "Class A Govt. Contractor" },
     { photo: "images/team/team-6.jpeg", name: "K V Paulose",           role: "Managing Director" },

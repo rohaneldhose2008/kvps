@@ -7,24 +7,24 @@
    ========================================================= */
 (() => {
   // [greeting, language, how long it stays on screen in ms]
-  // "Hello" is written slowly in script; the others follow at an easy pace.
+  // "Hello" is written in script; the languages flash past; it settles on Malayalam. Whole intro ≈ 2.7 s.
   const HELLOS = [
-    ["Hello", "English", 3000],
-    ["नमस्ते", "Hindi", 950],
-    ["வணக்கம்", "Tamil", 950],
-    ["నమస్కారం", "Telugu", 950],
-    ["ನಮಸ್ಕಾರ", "Kannada", 950],
-    ["নমস্কার", "Bengali", 950],
-    ["नमस्कार", "Marathi", 950],
-    ["નમસ્તે", "Gujarati", 950],
-    ["ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "Punjabi", 950],
-    ["ନମସ୍କାର", "Odia", 950],
-    ["নমস্কাৰ", "Assamese", 950],
-    ["آداب", "Urdu", 950],
-    ["प्रणाम", "Maithili", 950],
-    ["ᱡᱚᱦᱟᱨ", "Santali", 950],
-    ["नमो नमः", "Sanskrit", 950],
-    ["നമസ്കാരം", "Malayalam", 2200]   // last one: home
+    ["Hello", "English", 850],
+    ["नमस्ते", "Hindi", 95],
+    ["வணக்கம்", "Tamil", 95],
+    ["నమస్కారం", "Telugu", 95],
+    ["ನಮಸ್ಕಾರ", "Kannada", 95],
+    ["নমস্কার", "Bengali", 95],
+    ["नमस्कार", "Marathi", 95],
+    ["નમસ્તે", "Gujarati", 95],
+    ["ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "Punjabi", 95],
+    ["ନମସ୍କାର", "Odia", 95],
+    ["নমস্কাৰ", "Assamese", 95],
+    ["آداب", "Urdu", 95],
+    ["प्रणाम", "Maithili", 95],
+    ["ᱡᱚᱦᱟᱨ", "Santali", 95],
+    ["नमो नमः", "Sanskrit", 95],
+    ["നമസ്കാരം", "Malayalam", 520]   // last one: home
   ];
 
   const loader = document.getElementById("loader");
@@ -35,7 +35,6 @@
   const text = document.getElementById("loaderHello");
   const fill = document.getElementById("loaderFill");
   const num = document.getElementById("loaderNum");
-  const skip = document.getElementById("loaderSkip");
 
   // Reduced motion: skip straight to the site
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -62,6 +61,7 @@
     svg.setAttribute("aria-label", word + " (" + lang + ")");
     text.classList.toggle("is-script", i === 0);
     text.classList.toggle("is-last", i === HELLOS.length - 1);
+    text.classList.toggle("is-flash", ms < 300);
     fit();
     // draw the outline over ~55% of the word's time, fill over the next part, then fade out
     text.style.setProperty("--draw", Math.round(ms * 0.55) + "ms");
@@ -84,7 +84,6 @@
       resolve();
       setTimeout(() => loader.remove(), 1300);
     };
-    skip.addEventListener("click", end);
 
     const start = performance.now();
     let shown = -1;
@@ -99,7 +98,7 @@
       let acc = 0, i = 0;
       while (i < HELLOS.length - 1 && elapsed >= acc + HELLOS[i][2]) { acc += HELLOS[i][2]; i++; }
       if (i !== shown) { shown = i; write(i); }
-      if (t < 1) requestAnimationFrame(tick); else setTimeout(end, 250);
+      if (t < 1) requestAnimationFrame(tick); else setTimeout(end, 120);
     };
     // wait for the script font so "Hello" is drawn in the right shape
     const go = () => requestAnimationFrame(tick);

@@ -1,5 +1,5 @@
 /* =========================================================
-   KVP SONS — page interactions
+   K V PAULOSE AND SONS — page interactions
    ========================================================= */
 (() => {
   const D = window.SITE_DATA;
@@ -16,7 +16,7 @@
     <div>
       <p class="founder__tag">${founder.role}</p>
       <h3>${founder.name}</h3>
-      <blockquote>A visionary who founded KVP Sons in 1920 during the British Raj. He started with lift-irrigation projects for the paddy fields of the Periyar valley and roads from Elamkulam (now Kolenchery), and laid a foundation that generations of the Kunnel family continue to build on.</blockquote>
+      <blockquote>A visionary who founded K V Paulose and Sons in 1920 during the British Raj. He started with lift-irrigation projects for the paddy fields of the Periyar valley and roads from Elamkulam (now Kolenchery), and laid a foundation that generations of the Kunnel family continue to build on.</blockquote>
     </div>`;
   $("#teamGrid").innerHTML = members.map(m => `
     <article class="member reveal">
@@ -47,6 +47,23 @@
   $$(".nav a").forEach(a => a.addEventListener("click", () => {
     nav.classList.remove("is-open"); burger.classList.remove("is-open"); document.body.style.overflow = "";
   }));
+
+  // day / night switch for the hero scene
+  const sceneBtn = $("#sceneToggle");
+  if (sceneBtn) {
+    const label = () => {
+      const next = (window.kvpGetScene && window.kvpGetScene() === "day") ? "night" : "day";
+      sceneBtn.setAttribute("aria-label", `Switch to ${next} view`); sceneBtn.title = `Switch to ${next} view`;
+    };
+    label();
+    sceneBtn.addEventListener("click", () => {
+      if (!window.kvpSetScene) return;
+      window.kvpSetScene(window.kvpGetScene() === "day" ? "night" : "day");
+    });
+    document.addEventListener("kvp:scene", label);
+    // label reads the new mode after the switch finishes
+    document.addEventListener("kvp:scene", () => setTimeout(label, 400));
+  }
 
   // highlight the section you're in
   const links = $$(".nav a");
@@ -129,6 +146,20 @@
   // about images parallax
   gsap.to(".about__img--b", { yPercent: -18, ease: "none", scrollTrigger: { trigger: ".about", start: "top bottom", end: "bottom top", scrub: true } });
   gsap.from(".badge", { scale: .6, opacity: 0, duration: .9, ease: "back.out(1.8)", scrollTrigger: { trigger: ".about__media", start: "top 75%" } });
+
+  // legacy timeline: the gold line fills as you scroll and each year lights up when reached
+  const tl = $(".timeline");
+  if (tl) {
+    const items = $$(".timeline li");
+    ScrollTrigger.create({
+      trigger: tl, start: "top 65%", end: "bottom 65%",
+      onUpdate: self => {
+        tl.style.setProperty("--p", self.progress.toFixed(3));
+        const lineY = innerHeight * 0.65;
+        items.forEach(li => li.classList.toggle("is-passed", li.getBoundingClientRect().top + 24 < lineY));
+      }
+    });
+  }
 
   // gallery tiles
   ScrollTrigger.batch(".shot", {
