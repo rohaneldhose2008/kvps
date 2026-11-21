@@ -62,7 +62,7 @@ button { cursor: pointer; background: none; border: 0; }
 .brand span { font-family: var(--head); font-stretch: var(--head-stretch); font-weight: 800; font-size: 20px; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; line-height: 1; display: flex; flex-direction: column; }
 .brand small { font-family: var(--body); font-weight: 500; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--yellow); margin-top: 4px; }
 .nav { display: flex; gap: 26px; }
-.nav a { font-family: var(--head); font-stretch: var(--head-stretch); font-weight: 600; font-size: 16px; letter-spacing: .1em; text-transform: uppercase; position: relative; padding: 6px 0; color: rgba(255,255,255,.82); transition: color .3s; }
+.nav a { white-space: nowrap; font-family: var(--head); font-stretch: var(--head-stretch); font-weight: 600; font-size: 16px; letter-spacing: .1em; text-transform: uppercase; position: relative; padding: 6px 0; color: rgba(255,255,255,.82); transition: color .3s; }
 .nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--yellow); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease); }
 .nav a:hover, .nav a.is-active { color: var(--white); }
 .nav a:hover::after, .nav a.is-active::after { transform: scaleX(1); }
@@ -286,7 +286,8 @@ html[data-scene="night"] .scene-toggle .ico-moon { opacity: 0; transform: rotate
 /* =========================================================
    RESPONSIVE
    ========================================================= */
-@media (max-width: 1100px) {
+/* the full company name needs room: below 1280px the menu collapses into the ☰ button */
+@media (max-width: 1280px) {
   .nav { position: fixed; inset: 0; background: var(--ink); flex-direction: column; justify-content: center; align-items: center; gap: 18px; clip-path: inset(0 0 100% 0); transition: clip-path .6s var(--ease); z-index: -1; }
   .nav.is-open { clip-path: inset(0 0 0 0); }
   .nav a { font-size: 34px; font-weight: 700; }
@@ -300,6 +301,8 @@ html[data-scene="night"] .scene-toggle .ico-moon { opacity: 0; transform: rotate
   }
   .scene-toggle svg { width: 21px; height: 21px; }
   body:has(.nav.is-open) .scene-toggle { opacity: 0; pointer-events: none; }
+}
+@media (max-width: 1100px) {
   .services__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .team__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .clients__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
