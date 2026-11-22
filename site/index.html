@@ -64,7 +64,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Manrope:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=Barlow:wght@600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=13">
+  <link rel="stylesheet" href="css/style.css?v=15">
   <link rel="stylesheet" href="css/masonry.css?v=13">
 </head>
 <body class="is-loading">
@@ -152,13 +152,13 @@
         <div class="svc__img" style="background-image:url('https://images.unsplash.com/photo-1670912461796-81819c1e525b?auto=format&fit=crop&w=900&q=70')"></div>
         <div class="svc__body"><span class="svc__num">02</span><h3>Irrigation, Dam &amp; Canal Works</h3><p>Lift irrigation, pump houses, dams and canal systems for KIP, PVIP, IIP and MVIP.</p></div>
       </article>
-      <article class="svc reveal">
-        <div class="svc__img" style="background-image:url('https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=900&q=70')"></div>
-        <div class="svc__body"><span class="svc__num">03</span><h3>Building Construction</h3><p>PWD buildings, Kochi municipal works and private building construction.</p></div>
+      <article class="svc svc--project reveal" role="button" tabindex="0" data-project="vaikom" aria-label="W&amp;C Hospital and Administrative Block, Vaikom: view project">
+        <div class="svc__img" style="background-image:url('images/projects/vaikom-hospital-1.jpg')"></div>
+        <div class="svc__body"><span class="svc__num">03<span class="svc__cat"> · Building Construction</span></span><h3>W&amp;C Hospital, Vaikom</h3><p>A ₹32 crore hospital complex on the banks of Vembanad Lake, finished through COVID.</p><span class="svc__more">View project <i aria-hidden="true">→</i></span></div>
       </article>
-      <article class="svc reveal">
-        <div class="svc__img" style="background-image:url('https://images.unsplash.com/photo-1559843788-693858bf7338?auto=format&fit=crop&w=900&q=70')"></div>
-        <div class="svc__body"><span class="svc__num">04</span><h3>Major Infrastructure Projects</h3><p>Works for Kochi Metro Rail, Kochi Refinery, Harbour Engineering and boat jetties.</p></div>
+      <article class="svc svc--project reveal" role="button" tabindex="0" data-project="metro" aria-label="AP-SP Road widening for Kochi Metro Phase II: view project">
+        <div class="svc__img" style="background-image:url('images/projects/kochi-metro-road-1.jpg')"></div>
+        <div class="svc__body"><span class="svc__num">04<span class="svc__cat"> · Major Infrastructure</span></span><h3>Kochi Metro Phase II Road</h3><p>₹79 crore, 4.5 km widening of the Airport–Seaport Road to six lanes for the metro.</p><span class="svc__more">View project <i aria-hidden="true">→</i></span></div>
       </article>
     </div>
   </div>
@@ -321,11 +321,72 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="js/loader.js?v=13"></script>
+<script src="js/loader.js?v=14"></script>
 <script src="js/data.js?v=13"></script>
 <script src="js/crane.js?v=13"></script>
 <script src="js/work-images.js?v=13"></script>
 <script src="js/masonry.js?v=15"></script>
-<script src="js/main.js?v=13"></script>
+<!-- project popups: each opens from the services card with the matching data-project -->
+<div class="project" id="project-vaikom" role="dialog" aria-modal="true" aria-labelledby="projectVaikomTitle" hidden>
+  <div class="project__backdrop" data-close></div>
+  <div class="project__panel">
+    <button class="project__close" type="button" aria-label="Close" data-close>&times;</button>
+    <div class="project__gallery">
+      <img class="project__main" src="images/projects/vaikom-hospital-1.jpg" alt="W&amp;C Hospital, Vaikom: the six-storey block with blue glazing">
+      <div class="project__thumbs">
+        <button type="button" class="is-active" data-src="images/projects/vaikom-hospital-1.jpg" data-alt="W&amp;C Hospital, Vaikom: the six-storey block with blue glazing"><img src="images/projects/vaikom-hospital-1.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/vaikom-hospital-2.jpg" data-alt="Front of the W&amp;C Hospital, Vaikom"><img src="images/projects/vaikom-hospital-2.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/vaikom-hospital-3.jpg" data-alt="Project sheet: Women and Child Hospital, Vaikom Taluk Hospital, with the award"><img src="images/projects/vaikom-hospital-3.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/vaikom-hospital-4.jpg" data-alt="Health Minister K K Shailaja's post on the Vaikom Mother &amp; Child Hospital"><img src="images/projects/vaikom-hospital-4.jpg" alt=""></button>
+      </div>
+    </div>
+    <div class="project__text">
+      <p class="kicker kicker--dark"><span class="kicker__bar"></span>Featured Project · Building Construction</p>
+      <h3 id="projectVaikomTitle">Women &amp; Children Hospital and Administrative Block, Vaikom Taluk Hospital</h3>
+      <dl class="project__facts">
+        <div><dt>Cost</dt><dd>₹32 crore (both projects)</dd></div>
+        <div><dt>Built area</dt><dd>25,000 sq ft + 75,000 sq ft</dd></div>
+        <div><dt>Client</dt><dd>PWD Buildings Division, Kerala</dd></div>
+        <div><dt>Location</dt><dd>Vaikom, on Vembanad Lake</dd></div>
+      </dl>
+      <p>The Women and Children Hospital and the administrative block of the Taluk Headquarters Hospital, Vaikom, stand on the banks of the scenic Vembanad Lake. The site held very old buildings, and the new structure was built on the waterfront side of the complex. For the administrative block, end-bearing piles were driven many metres below ground level along the lake bank.</p>
+      <p>The project was initiated by K. Ajith, MLA, Vaikom, and the W&amp;C Hospital was inaugurated by K K Shailaja Teacher, then Health Minister of Kerala.</p>
+      <p>The final stretch of the work fell during COVID. Despite the conditions, we completed the work in every respect.</p>
+    </div>
+  </div>
+</div>
+
+<div class="project" id="project-metro" role="dialog" aria-modal="true" aria-labelledby="projectMetroTitle" hidden>
+  <div class="project__backdrop" data-close></div>
+  <div class="project__panel">
+    <button class="project__close" type="button" aria-label="Close" data-close>&times;</button>
+    <div class="project__gallery">
+      <img class="project__main" src="images/projects/kochi-metro-road-1.jpg" alt="Formwork for the counterfort retaining wall on the Airport–Seaport Road">
+      <div class="project__thumbs">
+        <button type="button" class="is-active" data-src="images/projects/kochi-metro-road-1.jpg" data-alt="Formwork for the counterfort retaining wall on the Airport–Seaport Road"><img src="images/projects/kochi-metro-road-1.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/kochi-metro-road-2.jpg" data-alt="Reinforcement laid along the widened road, with concrete being pumped in"><img src="images/projects/kochi-metro-road-2.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/kochi-metro-road-3.jpg" data-alt="Piling rig at work beside the excavated road edge"><img src="images/projects/kochi-metro-road-3.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/kochi-metro-road-4.jpg" data-alt="Workers concreting over a dense reinforcement mat"><img src="images/projects/kochi-metro-road-4.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/kochi-metro-road-5.jpg" data-alt="Kochi Metro Phase 2 preparatory works at Chittethukara"><img src="images/projects/kochi-metro-road-5.jpg" alt=""></button>
+      </div>
+    </div>
+    <div class="project__text">
+      <p class="kicker kicker--dark"><span class="kicker__bar"></span>Featured Project · Major Infrastructure</p>
+      <h3 id="projectMetroTitle">Widening of the Airport–Seaport Road for Kochi Metro Phase II</h3>
+      <dl class="project__facts">
+        <div><dt>Cost</dt><dd>₹79,12,98,350</dd></div>
+        <div><dt>Road length</dt><dd>4.5 km</dd></div>
+        <div><dt>Client</dt><dd>Kochi Metro Rail Ltd (KMRL)</dd></div>
+        <div><dt>Stretch</dt><dd>Collectorate Jn, Kakkanad to Infopark</dd></div>
+      </dl>
+      <p>The Airport–Seaport (AP-SP) Road along the proposed Metro Phase II alignment was a two-lane road carrying heavy traffic.</p>
+      <p>Phase II of Kochi Metro, from Palarivattom to Infopark, could begin only after this road was widened to six lanes, freeing space for the viaduct pillars along its centre line.</p>
+      <p>To do this we built a massive counterfort concrete retaining wall, about 500 m long and roughly 12 m high, and widened the road to the full six-lane width.</p>
+      <p>Work on the metro viaduct pillars and the Kakkanad stations is now under way along the road we widened.</p>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js?v=16"></script>
 </body>
 </html>

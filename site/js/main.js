@@ -42,6 +42,35 @@
     });
   }
 
+  /* ---------- featured project popups (cards with data-project="x" open #project-x) ---------- */
+  $$("[data-project]").forEach(projectCard => {
+    const project = document.getElementById("project-" + projectCard.dataset.project);
+    if (!project) return;
+    const main = $(".project__main", project);
+    let lastFocus = null;
+    const openProject = () => {
+      lastFocus = document.activeElement;
+      project.hidden = false;
+      document.body.style.overflow = "hidden";
+      requestAnimationFrame(() => requestAnimationFrame(() => project.classList.add("is-open")));
+      $(".project__close", project).focus({ preventScroll: true });
+    };
+    const closeProject = () => {
+      project.classList.remove("is-open");
+      document.body.style.overflow = "";
+      setTimeout(() => { project.hidden = true; }, 400);
+      if (lastFocus) lastFocus.focus({ preventScroll: true });
+    };
+    projectCard.addEventListener("click", openProject);
+    projectCard.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openProject(); } });
+    $$("[data-close]", project).forEach(el => el.addEventListener("click", closeProject));
+    addEventListener("keydown", e => { if (e.key === "Escape" && !project.hidden) closeProject(); });
+    $$(".project__thumbs button", project).forEach(b => b.addEventListener("click", () => {
+      $$(".project__thumbs button", project).forEach(x => x.classList.toggle("is-active", x === b));
+      main.src = b.dataset.src; main.alt = b.dataset.alt;
+    }));
+  });
+
   /* ---------- header + mobile nav ---------- */
   const header = $("#header"), nav = $("#nav"), burger = $("#burger");
   const onScroll = () => header.classList.toggle("is-solid", scrollY > 40);
@@ -108,7 +137,13 @@
     .from(".stat", { yPercent: 100, duration: .9, stagger: .08, ease: "expo.out" }, "-=.6")
     .from(".header", { yPercent: -100, duration: .8, ease: "expo.out", clearProps: "transform" }, "-=1");
   heroIn.progress(0); // apply the "from" states now so nothing flashes behind the loader
-  (window.kvpLoader || Promise.resolve()).then(() => { heroIn.play(); runCounters(); ScrollTrigger.refresh(); });
+  (window.kvpLoader || Promise.resolve()).then(() => {
+    heroIn.play(); runCounters(); ScrollTrigger.refresh();
+    // if the tab was in the background the animation may not have run — make sure the hero text is shown
+    const ensure = () => { if (heroIn.progress() < 1) heroIn.progress(1); };
+    setTimeout(ensure, 3500);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(ensure, 2500); });
+  });
 
   // hero content drifts as you scroll away
   gsap.to(".hero__content", { yPercent: -25, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });

@@ -102,7 +102,12 @@
     };
     // wait for the script font so "Hello" is drawn in the right shape
     const go = () => requestAnimationFrame(tick);
-    (document.fonts && document.fonts.load ? document.fonts.load('600 80px "Dancing Script"').catch(() => {}) : Promise.resolve())
-      .then(go, go);
+    // font wait is capped so a slow font can never hold the site back
+    Promise.race([
+      document.fonts && document.fonts.load ? document.fonts.load('600 80px "Dancing Script"').catch(() => {}) : Promise.resolve(),
+      new Promise(r => setTimeout(r, 800))
+    ]).then(go, go);
+    // safety net: animation frames pause in background tabs, so never let the intro hang
+    setTimeout(end, TOTAL + 2500);
   });
 })();
