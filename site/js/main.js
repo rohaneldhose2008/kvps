@@ -28,12 +28,19 @@
   $("#clientGrid").innerHTML = D.clients.map(src =>
     `<div class="client reveal"><img src="${src}" alt="Client logo" loading="lazy"></div>`).join("");
 
-  /* ---------- render gallery ---------- */
-  $("#galleryGrid").innerHTML = D.gallery.map((g, i) => `
-    <figure class="shot" data-cat="${g.cat}" data-i="${i}">
-      <img src="${g.src}" alt="${g.title}" loading="lazy">
-      <figcaption class="shot__cap"><b>${g.title}</b><span>${g.cat}</span></figcaption>
-    </figure>`).join("");
+  /* ---------- gallery: every work photo in a masonry grid (js/masonry.js) ---------- */
+  const galleryEl = $("#workGallery");
+  if (galleryEl && window.Masonry && window.WORK_IMAGES) {
+    window.Masonry(galleryEl, {
+      items: window.WORK_IMAGES.map(([f, w, h]) => ({
+        id: f, img: "images/work-thumb/" + f, full: "images/work-large/" + f,
+        width: w, height: h, alt: "K V Paulose and Sons project photo"
+      })),
+      columnWidth: 240, gap: 12, radius: 12,
+      animateFrom: "bottom", hoverEffect: "zoom", lightbox: true, draggable: true,
+      pageSize: 30                      // photos per "Show more"
+    });
+  }
 
   /* ---------- header + mobile nav ---------- */
   const header = $("#header"), nav = $("#nav"), burger = $("#burger");
@@ -72,36 +79,6 @@
     links.forEach(l => l.classList.toggle("is-active", l.getAttribute("href") === "#" + e.target.id));
   }), { rootMargin: "-45% 0px -50% 0px" });
   ["home", "about", "team", "clients", "gallery", "contact"].forEach(id => io.observe(document.getElementById(id)));
-
-  /* ---------- gallery filter + lightbox ---------- */
-  const shots = $$(".shot");
-  let visible = shots;
-  $$("#filters button").forEach(btn => btn.addEventListener("click", () => {
-    $$("#filters button").forEach(b => b.classList.toggle("is-active", b === btn));
-    const f = btn.dataset.filter;
-    shots.forEach(s => s.classList.toggle("is-hidden", f !== "all" && s.dataset.cat !== f));
-    visible = shots.filter(s => !s.classList.contains("is-hidden"));
-    if (hasGSAP) gsap.fromTo(visible, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .6, stagger: .04, ease: "power3.out" });
-    if (hasGSAP) ScrollTrigger.refresh();
-  }));
-
-  const lb = $("#lightbox"), lbImg = $("#lbImg"), lbCap = $("#lbCap");
-  let cur = 0;
-  const show = i => {
-    cur = (i + visible.length) % visible.length;
-    const g = D.gallery[+visible[cur].dataset.i];
-    lbImg.src = g.src.replace("w=1200", "w=1800"); lbImg.alt = g.title; lbCap.textContent = g.title;
-  };
-  shots.forEach(s => s.addEventListener("click", () => { show(visible.indexOf(s)); lb.classList.add("is-open"); lb.setAttribute("aria-hidden", "false"); }));
-  const close = () => { lb.classList.remove("is-open"); lb.setAttribute("aria-hidden", "true"); };
-  lb.addEventListener("click", e => {
-    const a = e.target.dataset.lb;
-    if (a === "prev") show(cur - 1); else if (a === "next") show(cur + 1); else if (a === "close" || e.target === lb) close();
-  });
-  addEventListener("keydown", e => {
-    if (!lb.classList.contains("is-open")) return;
-    if (e.key === "Escape") close(); if (e.key === "ArrowLeft") show(cur - 1); if (e.key === "ArrowRight") show(cur + 1);
-  });
 
   /* ---------- contact form ---------- */
   $("#contactForm").addEventListener("submit", e => {
@@ -160,12 +137,6 @@
       }
     });
   }
-
-  // gallery tiles
-  ScrollTrigger.batch(".shot", {
-    start: "top 92%",
-    onEnter: els => gsap.fromTo(els, { opacity: 0, y: 50, scale: .97 }, { opacity: 1, y: 0, scale: 1, duration: .9, stagger: .06, ease: "power3.out" })
-  });
 
   // section titles: yellow kicker bar grows
   $$(".kicker__bar").forEach(b => gsap.from(b, { scaleX: 0, transformOrigin: "left", duration: .8, ease: "power3.out", scrollTrigger: { trigger: b, start: "top 90%" } }));

@@ -506,12 +506,7 @@
     ctx.fillStyle = "#6E6C68"; ctx.fillRect(cwX, cy2 + 1, cwW, mw * 1.7);
     ctx.strokeStyle = "rgba(0,0,0,.35)"; ctx.lineWidth = 1;
     for (let k = 1; k < 4; k++) line(cwX, cy2 + 1 + k * mw * 0.42, cwX + cwW, cy2 + 1 + k * mw * 0.42);
-    if (cwW > 30) {
-      ctx.save(); ctx.translate(cwX + cwW / 2, cy2 + mw * 0.95); ctx.scale(Math.max(0.2, Math.abs(cos)), 1);
-      ctx.fillStyle = C.yellow; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      if (logo.complete && logo.naturalWidth) { const lh = mw * 1.3, lw = lh * logo.naturalWidth / logo.naturalHeight; ctx.drawImage(logo, -lw / 2, -lh / 2, lw, lh); }
-      ctx.restore();
-    }
+    // (no logo on the counterweight — the company board on the hook carries the branding)
 
     // main jib
     ctx.strokeStyle = C.yellow; ctx.lineWidth = Math.max(1, mw * 0.08);

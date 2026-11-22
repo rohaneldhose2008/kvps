@@ -1,3 +1,6 @@
 node_modules/
 .DS_Store
 Thumbs.db
+
+# original full-size work photos (the site uses images/work-thumb and images/work-large)
+site/images/work/

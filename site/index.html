@@ -64,7 +64,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Manrope:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=Barlow:wght@600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=9">
+  <link rel="stylesheet" href="css/style.css?v=13">
+  <link rel="stylesheet" href="css/masonry.css?v=13">
 </head>
 <body class="is-loading">
 
@@ -174,8 +175,8 @@
 <section class="about" id="about">
   <div class="container about__grid">
     <div class="about__media reveal">
-      <img class="about__img about__img--a" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=900&q=70" alt="K V Paulose and Sons construction team on site in Kerala" loading="lazy">
-      <img class="about__img about__img--b" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=700&q=70" alt="Civil engineers at work on a construction project" loading="lazy">
+      <img class="about__img about__img--a" src="images/work-large/IMG-20261022-WA0117.jpg" alt="Dam spillway with sluice gates — an early K V Paulose and Sons irrigation work" loading="lazy">
+      <img class="about__img about__img--b" src="images/work-large/IMG-20261023-WA0061.jpg" alt="W&C Hospital, Vaikom — a modern building by K V Paulose and Sons" loading="lazy">
       <div class="badge"><b>100+</b><span>Years of<br>building trust</span></div>
     </div>
     <div class="about__text">
@@ -262,16 +263,12 @@
     <div class="sec-head sec-head--light sec-head--row">
       <div>
         <p class="kicker"><span class="kicker__bar"></span>Gallery</p>
-        <h2 class="h2 reveal">Work <em>in progress</em></h2>
+        <h2 class="h2 reveal">A century of <em>our work</em></h2>
       </div>
-      <div class="filters" id="filters">
-        <button class="is-active" data-filter="all">All</button>
-        <button data-filter="buildings">Buildings</button>
-        <button data-filter="roads">Roads</button>
-        <button data-filter="bridges">Bridges</button>
-      </div>
+      <p class="gallery__note">Dams, canals, roads, bridges and buildings — from the early years to today.</p>
     </div>
-    <div class="masonry" id="galleryGrid"></div>
+    <!-- masonry grid of every project photo (js/masonry.js) -->
+    <div id="workGallery"></div>
   </div>
 </section>
 
@@ -322,19 +319,13 @@
   </div>
 </footer>
 
-<!-- lightbox -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <button class="lightbox__close" data-lb="close" aria-label="Close">✕</button>
-  <button class="lightbox__nav lightbox__nav--prev" data-lb="prev" aria-label="Previous">←</button>
-  <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
-  <button class="lightbox__nav lightbox__nav--next" data-lb="next" aria-label="Next">→</button>
-</div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="js/loader.js?v=8"></script>
-<script src="js/data.js?v=8"></script>
-<script src="js/crane.js?v=8"></script>
-<script src="js/main.js?v=8"></script>
+<script src="js/loader.js?v=13"></script>
+<script src="js/data.js?v=13"></script>
+<script src="js/crane.js?v=13"></script>
+<script src="js/work-images.js?v=13"></script>
+<script src="js/masonry.js?v=15"></script>
+<script src="js/main.js?v=13"></script>
 </body>
 </html>
