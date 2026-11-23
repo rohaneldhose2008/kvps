@@ -42,33 +42,62 @@
     });
   }
 
-  /* ---------- featured project popups (cards with data-project="x" open #project-x) ---------- */
-  $$("[data-project]").forEach(projectCard => {
-    const project = document.getElementById("project-" + projectCard.dataset.project);
-    if (!project) return;
-    const main = $(".project__main", project);
-    let lastFocus = null;
-    const openProject = () => {
-      lastFocus = document.activeElement;
-      project.hidden = false;
-      document.body.style.overflow = "hidden";
-      requestAnimationFrame(() => requestAnimationFrame(() => project.classList.add("is-open")));
-      $(".project__close", project).focus({ preventScroll: true });
-    };
-    const closeProject = () => {
-      project.classList.remove("is-open");
-      document.body.style.overflow = "";
-      setTimeout(() => { project.hidden = true; }, 400);
-      if (lastFocus) lastFocus.focus({ preventScroll: true });
-    };
-    projectCard.addEventListener("click", openProject);
-    projectCard.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openProject(); } });
-    $$("[data-close]", project).forEach(el => el.addEventListener("click", closeProject));
-    addEventListener("keydown", e => { if (e.key === "Escape" && !project.hidden) closeProject(); });
-    $$(".project__thumbs button", project).forEach(b => b.addEventListener("click", () => {
-      $$(".project__thumbs button", project).forEach(x => x.classList.toggle("is-active", x === b));
+  /* ---------- featured project popups ----------
+     A card with data-project="x" opens #project-x. A card holding several projects
+     (.svc__item blocks) rotates between them and opens whichever one is showing. */
+  let openPopup = null, lastFocus = null;
+  const closeProject = () => {
+    if (!openPopup) return;
+    const p = openPopup; openPopup = null;
+    p.classList.remove("is-open");
+    document.body.style.overflow = "";
+    setTimeout(() => { if (openPopup !== p) p.hidden = true; }, 400);
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
+  };
+  const openProject = (id, keepFocus) => {
+    const p = document.getElementById("project-" + id);
+    if (!p) return;
+    if (openPopup && openPopup !== p) { openPopup.classList.remove("is-open"); openPopup.hidden = true; }
+    if (!keepFocus) lastFocus = document.activeElement;
+    openPopup = p;
+    p.hidden = false;
+    $(".project__panel", p).scrollTop = 0;
+    document.body.style.overflow = "hidden";
+    requestAnimationFrame(() => requestAnimationFrame(() => p.classList.add("is-open")));
+    $(".project__close", p).focus({ preventScroll: true });
+  };
+  $$(".project").forEach(p => {
+    const main = $(".project__main", p);
+    $$("[data-close]", p).forEach(el => el.addEventListener("click", closeProject));
+    $$("[data-goto]", p).forEach(el => el.addEventListener("click", () => openProject(el.dataset.goto, true)));
+    $$(".project__thumbs button", p).forEach(b => b.addEventListener("click", () => {
+      $$(".project__thumbs button", p).forEach(x => x.classList.toggle("is-active", x === b));
       main.src = b.dataset.src; main.alt = b.dataset.alt;
     }));
+  });
+  addEventListener("keydown", e => { if (e.key === "Escape") closeProject(); });
+
+  $$("[data-project]").forEach(card => {
+    card.addEventListener("click", e => { if (!e.target.closest(".svc__dots")) openProject(card.dataset.project); });
+    card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openProject(card.dataset.project); } });
+
+    const items = $$(".svc__item", card);
+    if (items.length < 2) return;
+    const slides = $$(".svc__slide", card), dots = $$(".svc__dots button", card);
+    let i = 0, timer = null;
+    const show = n => {
+      i = (n + items.length) % items.length;
+      [items, slides, dots].forEach(list => list.forEach((el, k) => el.classList.toggle("is-on", k === i)));
+      card.dataset.project = items[i].dataset.for;
+      card.setAttribute("aria-label", $("h3", items[i]).textContent + ": view project");
+    };
+    const start = () => { clearInterval(timer); timer = setInterval(() => show(i + 1), 4500); };
+    dots.forEach((d, k) => d.addEventListener("click", () => { show(k); start(); }));
+    card.addEventListener("mouseenter", () => clearInterval(timer));
+    card.addEventListener("mouseleave", start);
+    card.addEventListener("focusin", () => clearInterval(timer));
+    card.addEventListener("focusout", start);
+    show(0); start();
   });
 
   /* ---------- header + mobile nav ---------- */
@@ -110,9 +139,21 @@
   ["home", "about", "team", "clients", "gallery", "contact"].forEach(id => io.observe(document.getElementById(id)));
 
   /* ---------- contact form ---------- */
+  // the enquiry goes straight to the company WhatsApp (+91 94963 34344), already filled in
+  const WA_NUMBER = "919496334344";
   $("#contactForm").addEventListener("submit", e => {
     e.preventDefault();
-    $("#formMsg").textContent = "Thank you! We'll get back to you shortly.";
+    const f = e.target.elements;
+    const lines = [
+      "Hello K V Paulose and Sons, I would like a quote.",
+      "Name: " + f.name.value.trim(),
+      "Phone: " + f.phone.value.trim(),
+      "Email: " + f.email.value.trim(),
+      "Project type: " + f.type.value
+    ];
+    if (f.message.value.trim()) lines.push("Message: " + f.message.value.trim());
+    window.open("https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noopener");
+    $("#formMsg").textContent = "Opening WhatsApp. Just press send and we'll get back to you shortly.";
     e.target.reset();
   });
 
@@ -140,7 +181,7 @@
   (window.kvpLoader || Promise.resolve()).then(() => {
     heroIn.play(); runCounters(); ScrollTrigger.refresh();
     // if the tab was in the background the animation may not have run — make sure the hero text is shown
-    const ensure = () => { if (heroIn.progress() < 1) heroIn.progress(1); };
+    const ensure = () => { if (heroIn.progress() < 1) heroIn.progress(1); ScrollTrigger.refresh(); };
     setTimeout(ensure, 3500);
     document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(ensure, 2500); });
   });

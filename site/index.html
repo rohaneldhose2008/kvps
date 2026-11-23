@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>K V Paulose and Sons Pvt Ltd | Civil Contractors in Ernakulam, Kerala</title>
   <meta name="description" content="Class A Government civil contractor in Ernakulam, Kerala since 1920 — road construction, irrigation, dams, canals and PWD buildings across Kochi and Kerala.">
@@ -36,6 +37,7 @@
     "logo": "https://rohaneldhose2008.github.io/kvps/images/logo.png",
     "image": "https://rohaneldhose2008.github.io/kvps/images/logo.png",
     "foundingDate": "1920",
+    "telephone": "+91-9496334344",
     "founder": { "@type": "Person", "name": "Paily Yoyak" },
     "address": { "@type": "PostalAddress", "addressLocality": "Ernakulam", "addressRegion": "Kerala", "addressCountry": "IN" },
     "areaServed": [
@@ -64,7 +66,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Manrope:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=Barlow:wght@600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=15">
+  <link rel="stylesheet" href="css/style.css?v=17">
   <link rel="stylesheet" href="css/masonry.css?v=13">
 </head>
 <body class="is-loading">
@@ -152,9 +154,22 @@
         <div class="svc__img" style="background-image:url('https://images.unsplash.com/photo-1670912461796-81819c1e525b?auto=format&fit=crop&w=900&q=70')"></div>
         <div class="svc__body"><span class="svc__num">02</span><h3>Irrigation, Dam &amp; Canal Works</h3><p>Lift irrigation, pump houses, dams and canal systems for KIP, PVIP, IIP and MVIP.</p></div>
       </article>
-      <article class="svc svc--project reveal" role="button" tabindex="0" data-project="vaikom" aria-label="W&amp;C Hospital and Administrative Block, Vaikom: view project">
-        <div class="svc__img" style="background-image:url('images/projects/vaikom-hospital-1.jpg')"></div>
-        <div class="svc__body"><span class="svc__num">03<span class="svc__cat"> · Building Construction</span></span><h3>W&amp;C Hospital, Vaikom</h3><p>A ₹32 crore hospital complex on the banks of Vembanad Lake, finished through COVID.</p><span class="svc__more">View project <i aria-hidden="true">→</i></span></div>
+      <article class="svc svc--project svc--multi reveal" role="button" tabindex="0" data-project="vaikom" aria-label="W&amp;C Hospital, Vaikom: view project">
+        <div class="svc__img svc__img--slides">
+          <div class="svc__slide is-on" style="background-image:url('images/projects/vaikom-hospital-1.jpg')"></div>
+          <div class="svc__slide" style="background-image:url('images/projects/anchalpetty-church-1.jpg')"></div>
+          <div class="svc__slide" style="background-image:url('images/projects/lola-hypermarket-1.jpg')"></div>
+        </div>
+        <div class="svc__body">
+          <span class="svc__num">03<span class="svc__cat"> · Building Construction</span></span>
+          <div class="svc__items">
+            <div class="svc__item is-on" data-for="vaikom"><h3>W&amp;C Hospital, Vaikom</h3><p>A ₹32 crore hospital complex on the banks of Vembanad Lake, finished through COVID.</p></div>
+            <div class="svc__item" data-for="church"><h3>St. Mary’s Church, Anchalpetty</h3><p>Church, parish hall, parsonage and land development, completed in about eleven months.</p></div>
+            <div class="svc__item" data-for="lola"><h3>Lola Hypermarket, Kolenchery</h3><p>53,000 sq ft of civil works and land development, finished in just seven months.</p></div>
+          </div>
+          <div class="svc__foot"><span class="svc__more">View project <i aria-hidden="true">→</i></span>
+            <span class="svc__dots"><button type="button" class="is-on" aria-label="Show W&amp;C Hospital, Vaikom"></button><button type="button" aria-label="Show St. Mary’s Church, Anchalpetty"></button><button type="button" aria-label="Show Lola Hypermarket, Kolenchery"></button></span></div>
+        </div>
       </article>
       <article class="svc svc--project reveal" role="button" tabindex="0" data-project="metro" aria-label="AP-SP Road widening for Kochi Metro Phase II: view project">
         <div class="svc__img" style="background-image:url('images/projects/kochi-metro-road-1.jpg')"></div>
@@ -279,19 +294,23 @@
       <p class="kicker"><span class="kicker__bar"></span>Contact</p>
       <h2 class="h2">Let's build <em>together</em></h2>
       <p class="contact__lead">Tell us about your project — our team will get back to you within one working day.</p>
+      <ul class="contact__list">
+        <li><span>Call</span><a href="tel:+919496334344">+91 94963 34344</a></li>
+        <li><span>WhatsApp</span><a href="https://wa.me/919496334344" target="_blank" rel="noopener">Chat with us on WhatsApp</a></li>
+      </ul>
     </div>
     <form class="form" id="contactForm">
       <h3>Request a Quote</h3>
       <div class="form__row">
-        <label><span>Name*</span><input type="text" required></label>
-        <label><span>Phone*</span><input type="tel" required></label>
+        <label><span>Name*</span><input type="text" name="name" required></label>
+        <label><span>Phone*</span><input type="tel" name="phone" required></label>
       </div>
-      <label><span>Email*</span><input type="email" required></label>
+      <label><span>Email*</span><input type="email" name="email" required></label>
       <label><span>Project Type</span>
-        <select><option>Roads &amp; Highways</option><option>Bridges</option><option>Buildings</option><option>Irrigation &amp; Water</option><option>Other</option></select>
+        <select name="type"><option>Roads &amp; Highways</option><option>Bridges</option><option>Buildings</option><option>Irrigation &amp; Water</option><option>Other</option></select>
       </label>
-      <label><span>Message</span><textarea rows="4"></textarea></label>
-      <button class="btn btn--yellow btn--block" type="submit">Send Enquiry <span>→</span></button>
+      <label><span>Message</span><textarea name="message" rows="4"></textarea></label>
+      <button class="btn btn--yellow btn--block" type="submit">Send Enquiry on WhatsApp <span>→</span></button>
       <p class="form__msg" id="formMsg" role="status"></p>
     </form>
   </div>
@@ -326,6 +345,9 @@
 <script src="js/crane.js?v=13"></script>
 <script src="js/work-images.js?v=13"></script>
 <script src="js/masonry.js?v=15"></script>
+<!-- floating WhatsApp button (bottom right) -->
+<a class="wa-float" href="https://wa.me/919496334344?text=Hello%20K%20V%20Paulose%20and%20Sons%2C%20I%20would%20like%20to%20enquire%20about%20a%20project." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="Chat with us on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+
 <!-- project popups: each opens from the services card with the matching data-project -->
 <div class="project" id="project-vaikom" role="dialog" aria-modal="true" aria-labelledby="projectVaikomTitle" hidden>
   <div class="project__backdrop" data-close></div>
@@ -352,6 +374,68 @@
       <p>The Women and Children Hospital and the administrative block of the Taluk Headquarters Hospital, Vaikom, stand on the banks of the scenic Vembanad Lake. The site held very old buildings, and the new structure was built on the waterfront side of the complex. For the administrative block, end-bearing piles were driven many metres below ground level along the lake bank.</p>
       <p>The project was initiated by K. Ajith, MLA, Vaikom, and the W&amp;C Hospital was inaugurated by K K Shailaja Teacher, then Health Minister of Kerala.</p>
       <p>The final stretch of the work fell during COVID. Despite the conditions, we completed the work in every respect.</p>
+      <button type="button" class="project__next" data-goto="church">Next building project: St. Mary’s Church, Anchalpetty <i aria-hidden="true">→</i></button>
+    </div>
+  </div>
+</div>
+
+<div class="project" id="project-church" role="dialog" aria-modal="true" aria-labelledby="projectChurchTitle" hidden>
+  <div class="project__backdrop" data-close></div>
+  <div class="project__panel">
+    <button class="project__close" type="button" aria-label="Close" data-close>&times;</button>
+    <div class="project__gallery">
+      <img class="project__main" src="images/projects/anchalpetty-church-1.jpg" alt="St. Mary’s Malankara Catholic Church, Anchalpetty, under construction">
+      <div class="project__thumbs">
+        <button type="button" class="is-active" data-src="images/projects/anchalpetty-church-1.jpg" data-alt="St. Mary’s Malankara Catholic Church, Anchalpetty, under construction"><img src="images/projects/anchalpetty-church-1.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/anchalpetty-church-2.jpg" data-alt="Scaffolding on the church’s front gable"><img src="images/projects/anchalpetty-church-2.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/anchalpetty-church-3.jpg" data-alt="Inside the nave, looking towards the front gable"><img src="images/projects/anchalpetty-church-3.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/anchalpetty-church-4.jpg" data-alt="The great arch with the roof shuttering behind it"><img src="images/projects/anchalpetty-church-4.jpg" alt=""></button>
+      </div>
+    </div>
+    <div class="project__text">
+      <p class="kicker kicker--dark"><span class="kicker__bar"></span>Featured Project · Building Construction</p>
+      <h3 id="projectChurchTitle">St. Mary’s Malankara Catholic Church, Anchalpetty</h3>
+      <dl class="project__facts">
+        <div><dt>Structures</dt><dd>Main church, parish hall, parsonage</dd></div>
+        <div><dt>Timeline</dt><dd>About 11 months</dd></div>
+        <div><dt>Scope</dt><dd>Buildings + full land development</dd></div>
+        <div><dt>Location</dt><dd>Anchalpetty</dd></div>
+      </dl>
+      <p><strong>A landmark project delivered in record time.</strong> The work covered three major structures — the main church, the parish hall and the parsonage — together with the complete land development and associated infrastructure.</p>
+      <p>The main church serves as the spiritual centre of the parish, the parish hall hosts community gatherings and religious functions, and the parsonage houses the clergy. With the land development, the result is a complete, working campus.</p>
+      <p>The work ran on a war footing, with careful planning, coordinated manpower, efficient use of resources and an unwavering commitment to quality, keeping steady progress on every work front at once.</p>
+      <p>Three buildings and full site development were brought to completion stage in about eleven months — proof of our team’s dedication and our ability to deliver complex, multi-structure projects with speed, precision and quality.</p>
+      <button type="button" class="project__next" data-goto="lola">Next building project: Lola Hypermarket, Kolenchery <i aria-hidden="true">→</i></button>
+    </div>
+  </div>
+</div>
+
+<div class="project" id="project-lola" role="dialog" aria-modal="true" aria-labelledby="projectLolaTitle" hidden>
+  <div class="project__backdrop" data-close></div>
+  <div class="project__panel">
+    <button class="project__close" type="button" aria-label="Close" data-close>&times;</button>
+    <div class="project__gallery">
+      <img class="project__main" src="images/projects/lola-hypermarket-1.jpg" alt="Lola Hypermarket, Kolenchery: the finished front elevation">
+      <div class="project__thumbs">
+        <button type="button" class="is-active" data-src="images/projects/lola-hypermarket-1.jpg" data-alt="Lola Hypermarket, Kolenchery: the finished front elevation"><img src="images/projects/lola-hypermarket-1.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/lola-hypermarket-2.jpg" data-alt="Service block, water tower and steel canopy at dusk"><img src="images/projects/lola-hypermarket-2.jpg" alt=""></button>
+        <button type="button" data-src="images/projects/lola-hypermarket-3.jpg" data-alt="The hypermarket's side elevation and paved yard"><img src="images/projects/lola-hypermarket-3.jpg" alt=""></button>
+      </div>
+    </div>
+    <div class="project__text">
+      <p class="kicker kicker--dark"><span class="kicker__bar"></span>Featured Project · Building Construction</p>
+      <h3 id="projectLolaTitle">Lola Hypermarket, Kolenchery</h3>
+      <dl class="project__facts">
+        <div><dt>Client</dt><dd>Grandmas Group (sister concern of KP Chacko Jewels)</dd></div>
+        <div><dt>Built area</dt><dd>53,000 sq ft</dd></div>
+        <div><dt>Timeline</dt><dd>7 months, from November</dd></div>
+        <div><dt>Location</dt><dd>Kolenchery, Ernakulam</dd></div>
+      </dl>
+      <p><strong>A landmark commercial development.</strong> Lola Hypermarket, built for the Grandmas Group, a sister concern of KP Chacko Jewels, is one of the largest commercial developments in Kolenchery and a milestone in the town's retail and business landscape.</p>
+      <p>Our scope covered land development, retaining walls, civil and structural works, steel fabrication and erection, landscaping and the associated site works.</p>
+      <p>Work began in November, and all 53,000 sq ft of civil construction and land development was completed in just seven months — a demanding schedule met through strong project management, efficient execution, engineering expertise and a firm commitment to quality.</p>
+      <p>As it nears its final stage, Lola Hypermarket is set to become a prominent landmark in Kolenchery and a new benchmark for commercial infrastructure in the town. For us it is more than another contract: it is a project we are proud to have built with vision, commitment and excellence.</p>
+      <button type="button" class="project__next" data-goto="vaikom">Next building project: W&amp;C Hospital, Vaikom <i aria-hidden="true">→</i></button>
     </div>
   </div>
 </div>
@@ -387,6 +471,6 @@
   </div>
 </div>
 
-<script src="js/main.js?v=16"></script>
+<script src="js/main.js?v=19"></script>
 </body>
 </html>
