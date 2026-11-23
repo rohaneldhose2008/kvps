@@ -63,7 +63,7 @@
     p.hidden = false;
     $(".project__panel", p).scrollTop = 0;
     document.body.style.overflow = "hidden";
-    requestAnimationFrame(() => requestAnimationFrame(() => p.classList.add("is-open")));
+    requestAnimationFrame(() => requestAnimationFrame(() => { if (openPopup === p) p.classList.add("is-open"); }));
     $(".project__close", p).focus({ preventScroll: true });
   };
   $$(".project").forEach(p => {
