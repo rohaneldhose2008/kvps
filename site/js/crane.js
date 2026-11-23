@@ -438,7 +438,7 @@
     ctx.fillStyle = C.yellow; ctx.fillRect(bx + 4, by, bw - 8, 3); ctx.fillRect(bx + 4, by + bH - 3, bw - 8, 3);
     ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.font = `700 ${Math.max(10, bH * 0.42)}px "Barlow Condensed", sans-serif`;
-    ctx.fillText(BRAND + "  ·  SINCE 1920", bx + bw / 2, by + bH / 2 + 1, bw - 20);
+    ctx.fillText(BRAND + "  ·  SINCE 1919", bx + bw / 2, by + bH / 2 + 1, bw - 20);
 
     // welding sparks on the top floor
     const src = S.sparkSrc;

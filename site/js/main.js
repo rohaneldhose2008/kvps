@@ -16,7 +16,7 @@
     <div>
       <p class="founder__tag">${founder.role}</p>
       <h3>${founder.name}</h3>
-      <blockquote>A visionary who founded K V Paulose and Sons in 1920 during the British Raj. He started with lift-irrigation projects for the paddy fields of the Periyar valley and roads from Elamkulam (now Kolenchery), and laid a foundation that generations of the Kunnel family continue to build on.</blockquote>
+      <blockquote>A visionary who founded K V Paulose and Sons in 1919 during the British Raj. He started with lift-irrigation projects for the paddy fields of the Periyar valley and roads from Elamkulam (now Kolenchery), and laid a foundation that generations of the Kunnel family continue to build on.</blockquote>
     </div>`;
   $("#teamGrid").innerHTML = members.map(m => `
     <article class="member reveal">

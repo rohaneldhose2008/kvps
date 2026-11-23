@@ -478,3 +478,17 @@ body:has(.nav.is-open) .wa-float, body.is-loading .wa-float { opacity: 0; pointe
   .wa-float { right: 18px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); width: 52px; height: 52px; }
   .wa-float svg { width: 28px; height: 28px; }
 }
+
+/* timeline: small licence label under each year */
+.timeline__year small { display: block; margin-top: 4px; font-family: var(--body); font-stretch: normal; font-weight: 600; font-size: 11px; line-height: 1.3; letter-spacing: .08em; text-transform: uppercase; color: var(--yellow-dark); }
+@media (min-width: 601px) {
+  .timeline li { grid-template-columns: 130px 1fr; }
+  .timeline li::before { left: 141px; }
+  .timeline::before, .timeline::after { left: 148px; }
+}
+@media (max-width: 600px) {
+  .timeline__year small { display: inline-block; margin: 0 0 0 10px; vertical-align: middle; }
+}
+
+/* client logos: always fit the whole logo inside the tile, never crop */
+.client img { position: absolute; inset: 16px; width: calc(100% - 32px); height: calc(100% - 32px); object-fit: contain; }
