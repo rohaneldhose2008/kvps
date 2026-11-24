@@ -23,7 +23,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+/* no CSS smooth scrolling: it breaks the scroll animations' measurements (links scroll smoothly via main.js) */
+html { scroll-padding-top: 76px; }
 body { background: var(--ink); color: var(--white); font-family: var(--body); font-size: 17px; line-height: 1.6; overflow-x: hidden; }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }

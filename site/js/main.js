@@ -100,6 +100,18 @@
     show(0); start();
   });
 
+  /* ---------- smooth scrolling for in-page links ---------- */
+  document.addEventListener("click", e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute("href").length < 2) return;
+    const target = document.getElementById(a.getAttribute("href").slice(1));
+    if (!target) return;
+    e.preventDefault();
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    history.replaceState(null, "", a.getAttribute("href"));
+  });
+
   /* ---------- header + mobile nav ---------- */
   const header = $("#header"), nav = $("#nav"), burger = $("#burger");
   const onScroll = () => header.classList.toggle("is-solid", scrollY > 40);
@@ -162,7 +174,7 @@
     $$("[data-count]").forEach(el => {
       const n = +el.dataset.count;
       if (!hasGSAP) { el.textContent = n; return; }
-      const o = { v: n > 1000 ? n - 120 : 0 }; // years count up from a nearby year, not from 0
+      const o = { v: n > 1000 ? new Date().getFullYear() : 0 }; // years count back from this year; other numbers count up from 0
       gsap.to(o, { v: n, duration: 2.2, ease: "power3.out", delay: .6, onUpdate: () => (el.textContent = Math.round(o.v)) });
     });
   }
