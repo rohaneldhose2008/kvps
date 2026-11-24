@@ -528,3 +528,23 @@ body:has(.nav.is-open) .wa-float, body.is-loading .wa-float { opacity: 0; pointe
 .form__msg.is-error { color: #B3261E; }
 @media (max-width: 860px) { .careers__grid { grid-template-columns: 1fr; } }
 @media (max-width: 600px) { .job__facts { grid-template-columns: 1fr; } .careers-hero { padding: 120px 0 50px; } .hiring .btn { width: 100%; } }
+
+/* ---------- FAQ ---------- */
+.faq { background: var(--paper); color: var(--ink); padding: 120px 0; border-top: 1px solid var(--paper-2); }
+.faq__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(30px, 5vw, 80px); align-items: start; }
+.faq .sec-head { margin-bottom: 0; }
+.faq__lead { color: var(--muted-dark); margin-top: 18px; max-width: 380px; }
+.faq__list { display: grid; gap: 12px; }
+.faq__item { background: var(--white); border-radius: var(--radius); border-left: 4px solid transparent; transition: border-color .3s; }
+.faq__item[open] { border-left-color: var(--yellow); }
+.faq__item summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 22px; }
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+.faq__item h3 { font-family: var(--head); font-stretch: var(--head-stretch); font-weight: 700; font-size: 21px; text-transform: uppercase; letter-spacing: .02em; line-height: 1.15; }
+.faq__ico { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); position: relative; }
+.faq__ico::before, .faq__ico::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; background: var(--yellow); transform: translate(-50%, -50%); transition: transform .3s var(--ease); }
+.faq__ico::after { transform: translate(-50%, -50%) rotate(90deg); }
+.faq__item[open] .faq__ico::after { transform: translate(-50%, -50%) rotate(0deg); }
+.faq__item p { padding: 0 22px 22px; color: var(--muted-dark); font-size: 16px; }
+@media (max-width: 860px) { .faq__grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .faq { padding: 90px 0; } .faq__item h3 { font-size: 18px; } .faq__item summary { padding: 16px; } .faq__item p { padding: 0 16px 18px; } }

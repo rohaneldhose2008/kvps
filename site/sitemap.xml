@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://kvpsons.com/</loc>
-    <lastmod>2026-11-20</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://kvpsons.com/images/projects/kochi-metro-road-1.jpg</image:loc>
+      <image:title>Kochi Metro Phase II Airport–Seaport Road widening</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://kvpsons.com/images/projects/vaikom-hospital-1.jpg</image:loc>
+      <image:title>W&amp;C Hospital, Vaikom</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://kvpsons.com/images/projects/anchalpetty-church-1.jpg</image:loc>
+      <image:title>St. Mary's Malankara Catholic Church, Anchalpetty</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://kvpsons.com/images/projects/lola-hypermarket-1.jpg</image:loc>
+      <image:title>Lola Hypermarket, Kolenchery</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://kvpsons.com/careers.html</loc>
