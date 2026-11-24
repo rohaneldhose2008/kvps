@@ -13,9 +13,9 @@ window.SITE_DATA = {
     { photo: "images/team/team-3.jpeg", name: "K U John",              role: "PWD Contractor · 1940" },
     { photo: "images/team/team-4.jpeg", name: "K P Yoyaki",            role: "Class A Govt. Contractor" },
     { photo: "images/team/team-5.jpeg", name: "K P Varghese",          role: "Class A Govt. Contractor" },
-    { photo: "images/team/team-6.jpeg", name: "K V Paulose",           role: "Managing Director" },
+    { photo: "images/team/team-6.jpeg", name: "K V Paulose",           role: "Class A Govt. Contractor" },
     { photo: "images/team/team-7.jpeg", name: "K U Paulosekutty",      role: "Class A Govt. Contractor" },
-    { photo: "images/team/team-8.jpeg", name: "Amal Paul Kunnel",      role: "Next Generation" },
+    { photo: "images/team/team-8.jpeg", name: "Amal Paul Kunnel",      role: "Managing Director" },
     { photo: "images/team/team-9.jpeg", name: "Sharath Paul Kunnel",   role: "Next Generation" }
   ],
 
