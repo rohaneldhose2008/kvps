@@ -13,16 +13,28 @@
     nav.classList.remove("is-open"); burger.classList.remove("is-open"); document.body.style.overflow = "";
   }));
 
-  const MIN_YEARS = 7;
   const WA_NUMBER = "919496334344";
   const msg = $("#careerMsg");
+  const form = $("#careerForm");
+
+  // "Apply for …" buttons pick that role in the form and jump to it
+  document.querySelectorAll(".job__apply").forEach(b => b.addEventListener("click", () => {
+    form.elements.position.value = b.dataset.role;
+    msg.textContent = ""; msg.classList.remove("is-error");
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+    setTimeout(() => form.elements.name.focus({ preventScroll: true }), 500);
+  }));
+  // open with a role already chosen, e.g. kvpsons.com/careers#senior-engineer
+  const fromHash = document.getElementById(location.hash.slice(1));
+  if (fromHash && fromHash.classList.contains("job")) form.elements.position.value = fromHash.querySelector(".job__apply").dataset.role;
   $("#careerForm").addEventListener("submit", e => {
     e.preventDefault();
     const f = e.target.elements;
     const years = +f.experience.value;
-    if (years < MIN_YEARS) {
+    const min = +f.position.selectedOptions[0].dataset.min || 0;
+    if (years < min) {
       msg.classList.add("is-error");
-      msg.textContent = `This role needs at least ${MIN_YEARS} years of building construction experience.`;
+      msg.textContent = `${f.position.value} needs at least ${min} years of building construction experience.`;
       f.experience.focus();
       return;
     }

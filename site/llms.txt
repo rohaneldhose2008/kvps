@@ -38,4 +38,4 @@
 ## Pages
 
 - [Home](https://kvpsons.com/): services, projects, history, clients, gallery, FAQ and contact
-- [Careers](https://kvpsons.com/careers): hiring Site Engineers with 7+ years of building construction experience
+- [Careers](https://kvpsons.com/careers): hiring a Project Manager (10+ years), Senior Engineer (7+ years) and Site Engineers (5+ years) in building construction
