@@ -118,6 +118,59 @@ Gmail → Settings → Accounts → **Send mail as**. Or use Zoho Mail (Part B) 
 
 ---
 
+## Part D: Forward managingdirector@kvpsons.com with Cloudflare Email Routing (free)
+
+Alternative to Part C (ImprovMX). Cloudflare forwards for free with no alias limits, but it **only works if Cloudflare runs
+the domain's DNS**: you move the nameservers from GoDaddy to Cloudflare. You still own and renew the domain at GoDaddy.
+**Use C or D, not both.**
+
+### D1. Add the domain to Cloudflare
+
+1. Sign up at https://dash.cloudflare.com → **Add a domain** → `kvpsons.com` → choose the **Free** plan.
+2. Cloudflare copies your existing DNS records. Check the list has the website records, and add any that are missing:
+
+   | Type | Name | Value | Proxy status |
+   |---|---|---|---|
+   | A | `@` | `185.199.108.153` | **DNS only** (grey cloud) |
+   | A | `@` | `185.199.109.153` | **DNS only** |
+   | A | `@` | `185.199.110.153` | **DNS only** |
+   | A | `@` | `185.199.111.153` | **DNS only** |
+   | CNAME | `www` | `rohaneldhose2008.github.io` | **DNS only** |
+
+   > **Important:** click each orange cloud so it turns **grey (DNS only)**. With the orange proxy on,
+   > GitHub Pages can't renew the site's HTTPS certificate.
+
+3. Delete any old **MX** records in the list (GoDaddy, Zoho or ImprovMX). Cloudflare adds its own in D3.
+
+### D2. Point GoDaddy at Cloudflare
+
+1. Cloudflare shows **two nameservers** (e.g. `xxx.ns.cloudflare.com` and `yyy.ns.cloudflare.com`).
+2. In GoDaddy: **My Products → kvpsons.com → DNS → Nameservers → Change nameservers → "I'll use my own nameservers"**.
+   Enter the two Cloudflare names and save. If GoDaddy shows **DNSSEC** as on, turn it off first.
+3. Wait until Cloudflare emails you that the site is **Active** (usually under an hour, at most 24 h).
+   The website keeps working throughout.
+
+### D3. Turn on Email Routing
+
+1. In Cloudflare: **kvpsons.com → Email → Email Routing → Get started**.
+2. **Destination address:** enter the Gmail the mail should go to, then click the verification link Cloudflare emails to it.
+3. **Custom address:** `managingdirector` → that Gmail. Save.
+4. Cloudflare asks to add its records (3 MX `route1/route2/route3.mx.cloudflare.net` and an SPF TXT). Click **Add records and enable**.
+5. Optional: **Catch-all address** → the same Gmail, so any name @kvpsons.com reaches you.
+
+### D4. Test
+
+From a different email account, send a message to managingdirector@kvpsons.com and check the Gmail (and Spam the first time).
+
+### D5. Optional: reply as managingdirector@kvpsons.com from Gmail
+
+Cloudflare only receives and forwards. To send from the address: Google account → turn on 2-Step Verification →
+create an **App password**. Then Gmail → Settings → Accounts → **Send mail as → Add another address**:
+`managingdirector@kvpsons.com`, SMTP server `smtp.gmail.com`, port 587, your Gmail address and the app password.
+In Cloudflare DNS, edit the SPF TXT so it reads `v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all`.
+
+---
+
 ## Quick checklist
 
 - [ ] Bought kvpsons.com
