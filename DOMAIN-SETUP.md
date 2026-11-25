@@ -83,6 +83,41 @@ Once it works, ask Claude to switch the site's links (canonical URL, sitemap, Go
 
 ---
 
+## Part C: Forward managingdirector@kvpsons.com to an existing inbox (free, ImprovMX)
+
+Use this instead of Part B if you just want mail sent to **managingdirector@kvpsons.com**
+to land in an inbox you already have (e.g. a Gmail). **Pick B or C, not both**: a domain can only have one set of MX records.
+
+### C1. Sign up
+
+1. Go to https://improvmx.com, type `kvpsons.com` and the inbox the mail should go to (e.g. your Gmail), and create the free account.
+2. Under **Aliases**, add `managingdirector` → your Gmail. Optionally add `*` (catch-all) → same Gmail, so any address @kvpsons.com reaches you.
+
+### C2. Records to add in GoDaddy (DNS → Manage DNS)
+
+First delete any other **MX** records on `@` (GoDaddy's defaults, or Zoho's from Part B).
+
+| Type | Name | Value | Priority | TTL |
+|---|---|---|---|---|
+| MX | `@` | `mx1.improvmx.com` | 10 | 1 hour |
+| MX | `@` | `mx2.improvmx.com` | 20 | 1 hour |
+| TXT | `@` | `v=spf1 include:spf.improvmx.com ~all` | — | 1 hour |
+
+- Keep only **one** SPF (`v=spf1 …`) TXT record.
+- Don't touch the A/AAAA/CNAME records for the website.
+- Back in ImprovMX, click **Check again** until both records turn green (minutes to a few hours).
+
+### C3. Test
+
+Send an email from a different account to managingdirector@kvpsons.com and check it arrives in the Gmail (look in Spam the first time).
+
+### C4. Optional: reply *as* managingdirector@kvpsons.com from Gmail
+
+The free plan only forwards. To send from the address, ImprovMX's paid plan gives SMTP details for
+Gmail → Settings → Accounts → **Send mail as**. Or use Zoho Mail (Part B) for a full free mailbox instead.
+
+---
+
 ## Quick checklist
 
 - [ ] Bought kvpsons.com
