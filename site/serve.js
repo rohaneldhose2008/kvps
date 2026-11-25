@@ -5,6 +5,8 @@ const types = { ".html": "text/html", ".css": "text/css", ".js": "text/javascrip
 http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split("?")[0]);
   if (p.endsWith("/")) p += "index.html";
+  // like GitHub Pages: /careers serves careers.html
+  if (!path.extname(p) && fs.existsSync(path.join(root, p + ".html"))) p += ".html";
   const file = path.join(root, p);
   if (!file.startsWith(root)) { res.writeHead(403); return res.end(); }
   fs.readFile(file, (err, data) => {

@@ -37,4 +37,4 @@
 ## Pages
 
 - [Home](https://kvpsons.com/): services, projects, history, clients, gallery, FAQ and contact
-- [Careers](https://kvpsons.com/careers.html): hiring Site Engineers with 7+ years of building construction experience
+- [Careers](https://kvpsons.com/careers): hiring Site Engineers with 7+ years of building construction experience
